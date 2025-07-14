@@ -21,6 +21,16 @@
     <div id="connect_div">
     <button id="connect" class="button" style="background-color:green"><span>Connect to Servo-Ducky</span></button>
     <button id="disconnect" class="button" style="background-color:red"><span>Disconnect</span></button>
+ 
+<label class="switch">
+  <input id="debug_toggle" type="checkbox">
+  <span class="toggle round"></span>
+</label>
+
+</label>
+    
+
+
   </div>
     <div id="terminal_container">
       <div id="terminal"></div>
@@ -84,10 +94,11 @@
 
     if (params.has("debug")) {
 
-      let init_data = '[[[0, 180, "50"], [1, 180, "30"], [2, 180, "10"], [3, 180, "Err_none"], [4, 180, "Err_none"], [5, 180, "Err_none"], [6, 180, "Err_none"], [7, 180, "Err_none"], [8, 180, "Err_none"], [9, 180, "Err_none"], [10, 180, "Err_none"], [11, 180, "Err_none"], [12, 180, "Err_none"], [13, 180, "Err_none"], [14, 180, "Err_none"], [15, 180, "Err_none"]], ["example_script_2", "nyja_skriftan_min", "es1", "example_script_1"], "DONE"]'
+      let init_data = '[[[0, 180, "Err_read-error"], [1, 180, "Err_none"], [2, 180, "Err_none"], [3, 180, "Err_none"], [4, 180, "Err_none"], [5, 180, "Err_none"], [6, 180, "Err_none"], [7, 180, "Err_none"], [8, 180, "Err_none"], [9, 180, "Err_none"], [10, 180, "Err_none"], [11, 180, "Err_none"], [12, 180, "Err_none"], [13, 180, "Err_none"], [14, 180, "Err_none"], [15, 180, "Err_none"]], ["func_debug", "example_script_2", "example_script_1", "nyja_skriftan_min", "es1"], {"debug": false}, "DONE"]'
       var init_data_json = JSON.parse(init_data);
       generate_sliders(init_data_json[0])
       generate_function_keys(init_data_json[1])
+      set_debug_switch(init_data_json[2])
     }
   </script>
 

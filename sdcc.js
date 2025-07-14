@@ -36,7 +36,29 @@ function getCookie(name) {
 }
 
 
+function click_debug_switch(event){
 
+    toggle_switch_state = document.getElementById("debug_toggle").checked
+    set_debug_switch(toggle_switch_state)
+
+}
+
+function set_debug_switch(debug_switch_state) {
+
+    if ( debug_switch_state )  {
+
+        uart_string = "DEBUG ENABLE";
+    } else {
+        uart_string = "DEBUG DISABLE";
+    }
+
+
+    sendToSerial(uart_string);
+    document.getElementById("debug_toggle").checked = debug_switch_state;
+
+
+
+}
 
 function on_slider_change(event) {
 
@@ -243,7 +265,7 @@ function click_run_function(event) {
 
 
     let value = event.target.value;
-    console.log(event.target);
+    //console.log(event.target);
 
 
 
@@ -351,7 +373,7 @@ async function connectSerial(autoReconnect = false) {
 
         console.log("start read")
         while (true) {
-            console.log(init_data)
+            //console.log(init_data)
             const { value, done } = await reader.read();
             if (done) break;
             init_data += value;
@@ -363,6 +385,7 @@ async function connectSerial(autoReconnect = false) {
         const init_data_json = JSON.parse(init_data);
         generate_sliders(init_data_json[0]);
         generate_function_keys(init_data_json[1]);
+        set_debug_switch(init_data_json[2]["debug"]);
 
         // Step 6: Start read loop
         while (true) {
@@ -489,6 +512,8 @@ if (savedContents !== null) {
 }
 
 document.getElementById("scode_box").addEventListener("input", save_scode_to_cookie);
+document.getElementById("debug_toggle").addEventListener("input", click_debug_switch);
+
 
 
 const container = document.getElementById("terminal_container");
