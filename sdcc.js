@@ -6,6 +6,8 @@ const terminal = document.getElementById('terminal');
 const input = document.getElementById('input');
 const connectButton = document.getElementById('connect');
 const disconnectButton = document.getElementById('disconnect');
+const cancelAllButton = document.getElementById('cancel_all');
+
 
 
 
@@ -391,7 +393,8 @@ async function connectSerial(autoReconnect = false) {
         while (true) {
             const { value, done } = await reader.read();
             if (done) break;
-            if (value) logToTerminal(value);
+            // incoming text
+            if (value) logToTerminal("🔵" + value);
         }
 
     } catch (err) {
@@ -407,10 +410,10 @@ async function sendToSerial(data) {
     }
     const encoded = new TextEncoder().encode(data + "\r\n");
     await writer.write(encoded);
-    logToTerminal("> " + data + "\n");
+    // outgoing text 
+    logToTerminal("🟢 " + data + "\n");
 }
 
-//connectButton.addEventListener('click', connectSerial(false));
 
 connectButton.addEventListener("click", () => {
     connectSerial(false); // Prompt user to select port
@@ -419,6 +422,15 @@ connectButton.addEventListener("click", () => {
 disconnectButton.addEventListener("click", () => {
     disconnectSerial(); // Prompt user to select port
 });
+
+cancelAllButton.addEventListener("click", () => {
+   sendToSerial("cancel_all");
+});
+
+
+
+
+
 
 input.addEventListener('keydown', async (e) => {
     if (e.key === 'Enter') {
