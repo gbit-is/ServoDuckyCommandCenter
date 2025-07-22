@@ -7,6 +7,7 @@ const input = document.getElementById('input');
 const connectButton = document.getElementById('connect');
 const disconnectButton = document.getElementById('disconnect');
 const cancelAllButton = document.getElementById('cancel_all');
+const reloadButton = document.getElementById('reload_pico');
 
 
 
@@ -427,6 +428,9 @@ cancelAllButton.addEventListener("click", () => {
    sendToSerial("cancel_all");
 });
 
+reloadButton.addEventListener("click", () => {
+   sendToSerial("_reload");
+});
 
 
 
