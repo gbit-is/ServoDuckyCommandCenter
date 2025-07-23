@@ -9,6 +9,8 @@ const disconnectButton = document.getElementById('disconnect');
 const cancelAllButton = document.getElementById('cancel_all');
 const reloadButton = document.getElementById('reload_pico');
 
+const removeNonASCII = (str) => str.replace(/[^\x09\x0A\x0D\x20-\x7E]/g, "");
+
 
 
 
@@ -84,6 +86,8 @@ function on_slider_change(event) {
 function execute_tmp_script() {
 
     script_content = document.getElementById("scode_box").value
+    script_content = removeNonASCII(script_content)
+
 
 
     let script_b64 = btoa(script_content);
