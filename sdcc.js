@@ -301,6 +301,7 @@ function generate_function_keys(function_list) {
         func_button.value = function_name;
         func_button.style.backgroundColor = "blue";
         func_button.classList.add("flex-item")
+        func_button.classList.add("function-keys")
         func_button.classList.add("button")
 
         func_button.addEventListener("click", function (event) {

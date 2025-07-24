@@ -9,6 +9,10 @@ body {
 }
 
 
+.function-keys {
+	margin-top: 5px;
+
+}
 
 .button {
     display: inline-flex;
